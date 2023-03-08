@@ -15,7 +15,7 @@ export const signUp = createAsyncThunk(
   "user/signup",
   async ({ fullName, email, password, cpassword }) => {
     try {
-      const result = await axios.post("http://localhost:9000/signup", {
+      const result = await axios.post(`${process.env.API_URL}/signup`, {
         fullName,
         email,
         password,
@@ -33,7 +33,7 @@ export const login = createAsyncThunk(
   "user/login",
   async ({ email, password }) => {
     try {
-      const response = await axios.post("http://localhost:9000/login", {
+      const response = await axios.post(`${process.env.API_URL}/login`, {
         email,
         password,
       });
@@ -49,7 +49,7 @@ export const login = createAsyncThunk(
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async (token) => {
   try {
-    const result = await axios.get("http://localhost:9000/", {
+    const result = await axios.get(`${process.env.API_URL}`, {
       headers: { token },
     });
 
@@ -61,7 +61,7 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async (token) => {
 
 export const fetchImage = createAsyncThunk("user/fetchImage", async (token) => {
   try {
-    const result = await axios.get("http://localhost:9000/profile-img" ,{
+    const result = await axios.get(`${process.env.API_URL}/profile-img` ,{
       responseType:'blob',
       headers: { token },
     });

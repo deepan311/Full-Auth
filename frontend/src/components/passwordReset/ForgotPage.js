@@ -34,7 +34,7 @@ const ForgotPage = () => {
   const sendLink = (e) => {
     setload(true);
     axios
-      .post("http://localhost:9000/forgot-password", { email: e.email })
+      .post(`${process.env.API_URL}/forgot-password`, { email: e.email })
       .then((res) => {
         setload(false);
         setmsg({ status: res.data.status, data: res.data, email: e.email });

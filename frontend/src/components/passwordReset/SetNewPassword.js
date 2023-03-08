@@ -63,7 +63,7 @@ const SetNewPassword = () => {
     const apiUpdate = async (token, newPassword) => {
       setload(true);
       axios
-        .put("http://localhost:9000/reset-password", {
+        .put(`${process.env.API_URL}/reset-password`, {
           token,
           newPassword,
         })

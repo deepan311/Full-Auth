@@ -9,7 +9,7 @@ function VerifyEmail() {
 
   const verifyApi = async (token)=>{
     setmsg({load:true})
-    axios.get('http://localhost:9000/verify-email/'+token).then(res=>{
+    axios.get(`${process.env.API_URL}/verify-email/`+token).then(res=>{
       setmsg({...msg,status:true,data:res.data,load:false})
     }).catch(err=>{
       setmsg({...msg,status:false,data:err.response.data,load:false})
