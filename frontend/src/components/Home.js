@@ -92,6 +92,8 @@ const Home = () => {
   }
 
   const fileUpload = async (e) => {
+
+    return alert('Somthing Problem Deepan has update Soon so please wait...')
     const file = e.target.files[0];
     const formdata = new FormData();
     formdata.append(state.userdata.email, file);
