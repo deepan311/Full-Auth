@@ -102,23 +102,18 @@ exports.getProfileImage = async (req, res) => {
     const filePath = path.join(__dirname, "../", 'profile.png');
     res.sendFile(filePath, (err) => {
       if (err) {
-        console.log(err);
         return res.status(401).json(jsonData(false, "sendFile Error", err));
       }
-      console.log("Successfully");
     });
     return res.status(200);
 
     }else{
       const filePath = path.join(__dirname, "../", result.profileImg);
-      console.log(filePath);
   
       res.sendFile(filePath, (err) => {
         if (err) {
-          console.log(err);
           return res.status(401).json(jsonData(false, "sendFile Error", err));
         }
-        console.log("Successfully");
       });
       return res.status(200);
     }
@@ -181,7 +176,6 @@ exports.getAllData = async (req, res) => {
 exports.getData = async (req, res) => {
   const id = req.id;
   try {
-    console.log(id);
     if (!id) {
       return res.status(401).send(jsonData(false, "Token No Found"));
     }
@@ -191,7 +185,6 @@ exports.getData = async (req, res) => {
     if (!result) {
       return res.status(401).send(jsonData(false, "No Fetch data", result));
     } else {
-      // console.log(file)
 
       res.json(jsonData(true, "All Data Fetch Successfully", result));
     }
@@ -228,7 +221,6 @@ exports.signUp = async (req, res) => {
     });
 
     if (result) {
-      console.log(result);
       VerifiedMailSend(result.email)
         .then((doc) => {
           res
@@ -367,7 +359,6 @@ exports.resendVerfiEmail = async (req, res) => {
       .json(jsonData(true, "This Email Aldreay Verified", email));
   }
   if (dbresult) {
-    console.log(dbresult);
     VerifiedMailSend(dbresult.email)
       .then((doc) => {
         res
@@ -406,9 +397,7 @@ exports.updateProfileImg = async (req, res) => {
       } else {
 
         if (dbresult.profileImg!='profile.png') {
-          console.log('inside delete')
           const filename = path.join(__dirname, "../", dbresult.profileImg);
-          console.log(filename)
           fs.unlink(filename ,err=>{
             if(err) return res.status(400).send('delete error') 
           });
