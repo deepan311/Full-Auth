@@ -202,13 +202,13 @@ const SignUp = () => {
                 <h3 className="font-semibold">or</h3>
 
                 <div className="grid lg:grid-cols-2 place-items-center">
-                  <div className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full lg:w-auto w-full justify-center lg:justify-evenly px-4 py-2">
+                  <div className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full lg:w-auto w-full justify-center lg:justify-evenly px-4 py-2" onClick={()=>{alert('Update Soon')}} >
                     <FcGoogle className="ml-2" />
                     <span className="text-xs font-semibold mx-3">
                       Signup Google
                     </span>
                   </div>
-                  <div className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full lg:w-auto w-full justify-center lg:justify-evenly px-4 py-2">
+                  <div className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full lg:w-auto w-full justify-center lg:justify-evenly px-4 py-2" onClick={()=>{alert('Update Soon')}}>
                     <BsFacebook className="ml-2" />
                     <span className="text-xs font-semibold mx-3">
                       Signup facebook
