@@ -15,7 +15,7 @@ export const signUp = createAsyncThunk(
   "user/signup",
   async ({ fullName, email, password, cpassword }) => {
     try {
-      const result = await axios.post(`${process.env.API_URL}/signup`, {
+      const result = await axios.post(`${process.env.REACT_APP_API_URL}/signup`, {
         fullName,
         email,
         password,
@@ -33,11 +33,12 @@ export const login = createAsyncThunk(
   "user/login",
   async ({ email, password }) => {
     try {
-      const response = await axios.post(`${process.env.API_URL}/login`, {
+      console.log('inside login slice '+process.env.REACT_APP_API_URL)
+
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
         email,
         password,
       });
-
       
 
       return response.data;
@@ -49,7 +50,7 @@ export const login = createAsyncThunk(
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async (token) => {
   try {
-    const result = await axios.get(`${process.env.API_URL}`, {
+    const result = await axios.get(`${process.env.REACT_APP_API_URL}`, {
       headers: { token },
     });
 
@@ -61,7 +62,7 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async (token) => {
 
 export const fetchImage = createAsyncThunk("user/fetchImage", async (token) => {
   try {
-    const result = await axios.get(`${process.env.API_URL}/profile-img` ,{
+    const result = await axios.get(`${process.env.REACT_APP_API_URL}/profile-img` ,{
       responseType:'blob',
       headers: { token },
     });

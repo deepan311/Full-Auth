@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import SucMsg from "../SucMsg";
@@ -26,7 +26,7 @@ const SetNewPassword = () => {
     const error = {};
 
     function PasswordMatch(password, cpassword) {
-      if (password != cpassword) {
+      if (password !== cpassword) {
         return false;
       } else {
         return true;
@@ -63,7 +63,7 @@ const SetNewPassword = () => {
     const apiUpdate = async (token, newPassword) => {
       setload(true);
       axios
-        .put(`${process.env.API_URL}/reset-password`, {
+        .put(`${process.env.REACT_APP_API_URL}/reset-password`, {
           token,
           newPassword,
         })

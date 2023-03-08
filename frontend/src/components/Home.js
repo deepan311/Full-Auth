@@ -40,7 +40,7 @@ const Home = () => {
   const resendverify = (email) => {
     setreload(true);
     axios
-      .get(`${process.env.API_URL}/resend-verify-email/${email}`)
+      .get(`${process.env.REACT_APP_API_URL}/resend-verify-email/${email}`)
       .then((res) => {
         setreload(false);
         setmsg({ status: true, data: res.data.msg, color: "text-green-400" });
@@ -97,7 +97,7 @@ const Home = () => {
     formdata.append(state.userdata.email, file);
     setinterload(true)
     await axios
-      .put(`${process.env.API_URL}/update-profile`, formdata, {
+      .put(`${process.env.REACT_APP_API_URL}/update-profile`, formdata, {
         headers: { token: cookie.token },
       })
       .then(async(res) => {

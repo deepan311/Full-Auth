@@ -6,9 +6,8 @@ import authImg from "../../asset/auth.png";
 
 import SucMsg from "../SucMsg";
 
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 
 const ForgotPage = () => {
   const [load, setload] = useState(false);
@@ -34,7 +33,7 @@ const ForgotPage = () => {
   const sendLink = (e) => {
     setload(true);
     axios
-      .post(`${process.env.API_URL}/forgot-password`, { email: e.email })
+      .post(`${process.env.REACT_APP_API_URL}/forgot-password`, { email: e.email })
       .then((res) => {
         setload(false);
         setmsg({ status: res.data.status, data: res.data, email: e.email });

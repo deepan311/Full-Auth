@@ -24,7 +24,7 @@ function App() {
 
   const tokenverify = async (token) => {
     const result = await axios
-      .get(`http://localhost:9000/${token}`)
+      .get(`${process.env.REACT_APP_API_URL}/${token}`)
       .then((res) => true)
       .catch((err) => {
         removecookie("token");
