@@ -160,7 +160,7 @@ const SignUp = () => {
                     name="cpassword"
                     style={errors.cpassword && touched.cpassword && myStyle}
                     className=" w-full  py-2 bg-gray-200 rounded px-3 outline-none relative"
-                    placeholder="Confom Password"
+                    placeholder="Conform Password"
                     type={viewPass ? "password" : "text"}
                     onBlur={handleBlur}
                   />

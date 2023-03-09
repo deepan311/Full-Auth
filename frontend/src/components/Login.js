@@ -117,7 +117,7 @@ const Login = () => {
                           : errors.password && touched.password && myStyle
                       }
                       className=" w-full  py-2 bg-gray-200 rounded px-3 outline-none relative"
-                      placeholder="Confom Password"
+                      placeholder="Password"
                       type={viewPass ? "password" : "text"}
                       onBlur={handleBlur}
                     />
