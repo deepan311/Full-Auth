@@ -63,7 +63,7 @@ const Login = () => {
 
   const g_login = async()=>{
 
-    window.location.replace('http://localhost:9000/google')
+    window.location.replace(`${process.env.REACT_APP_API_URL}/google`)
 
   }
 
