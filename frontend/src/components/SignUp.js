@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -14,13 +14,12 @@ import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [viewPass, setviewPass] = useState(true);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const state = useSelector((state) => state.user);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-      
-    dispatch(logout())
+    dispatch(logout());
   }, []);
 
   const myStyle = {
@@ -34,11 +33,8 @@ const SignUp = () => {
     cpassword: "",
   };
 
-
   const validate = (e) => {
     const error = {};
-
- 
 
     function validateEmail(email) {
       const re =
@@ -81,13 +77,17 @@ const SignUp = () => {
     return error;
   };
 
-  const register = async(o)=>{
-    const {fullName,email,password,cpassword} = o
-  await dispatch(signUp({fullName,email,password,cpassword}))
-  //  navigate('/login',{state:result})
-  }
-  
+  const g_login = async()=>{
 
+    window.location.replace('http://localhost:9000/google')
+
+  }
+
+  const register = async (o) => {
+    const { fullName, email, password, cpassword } = o;
+    await dispatch(signUp({ fullName, email, password, cpassword }));
+    //  navigate('/login',{state:result})
+  };
 
   return (
     <>
@@ -95,7 +95,7 @@ const SignUp = () => {
         initialValues={initialValue}
         validate={validate}
         onSubmit={register}
-  >
+      >
         {({ errors, handleBlur, touched }) => (
           <div className="grid grid-cols-1 h-full md:grid-cols-2 bg-gradient-to-b from-blue-400 to-slate-800 ">
             <div className="w-full h-screen mt-10">
@@ -109,132 +109,147 @@ const SignUp = () => {
             {/* ================================================================= */}
 
             <div className="bg-white rounded-[40px] md:rounded-b-[0px]  -order-1 md:order-1">
-             { 
-              state.signUp ===null ?  <div className="my-12 bg--300 w-5/6 md:w-4/6 mx-auto gird place-items-center">
-              <h3 className="text-2xl font-semibold text-left mb-2">
-                Create Account
-              </h3>
+              {state.signUp === null ? (
+                <div className="my-12 bg--300 w-5/6 md:w-4/6 mx-auto gird place-items-center">
+                  <h3 className="text-2xl font-semibold text-left mb-2">
+                    Create Account
+                  </h3>
 
-              <Form  >
-                <div className="my-5">
-                  <Field disabled={state.loading ? true :false}
-                    name="fullName"
-                    style={errors.fullName && touched.fullName && myStyle}
-                    className=" w-full py-2 bg-gray-200 rounded px-3 outline-none"
-                    placeholder="Fullname"
-                    type="text"
-                    onBlur={handleBlur}
-                  />
-                  <h2 className="text-red-700 text-left text-xs my-2">
-                    {errors.fullName && touched.fullName && errors.fullName}
-                  </h2>
-                </div>
-                <div className="my-4">
-                  <Field disabled={state.loading ? true :false}
-                    name="email"
-                    style={errors.email && touched.email && myStyle}
-                    className=" w-full py-2 bg-gray-200 rounded px-3 outline-none"
-                    placeholder="Email"
-                    type="text"
-                    onBlur={handleBlur}
-                  />
-                  <h2 className="text-red-700 text-left text-xs my-2">
-                    {errors.email && touched.email && errors.email}
-                  </h2>
-                </div>
-                <div className="my-4">
-                  <Field disabled={state.loading ? true :false}
-                    name="password"
-                    style={errors.password && touched.password && myStyle}
-                    className=" w-full py-2 bg-gray-200 rounded px-3 outline-none"
-                    placeholder="Password"
-                    type="password"
-                    onBlur={handleBlur}
-                  />
-                  <h2 className="text-red-700 text-left text-xs my-2">
-                    {errors.password && touched.password && errors.password}
-                  </h2>
-                </div>
-                <div className="relative my-4">
-                  <Field disabled={state.loading ? true :false}
-                    name="cpassword"
-                    style={errors.cpassword && touched.cpassword && myStyle}
-                    className=" w-full  py-2 bg-gray-200 rounded px-3 outline-none relative"
-                    placeholder="Conform Password"
-                    type={viewPass ? "password" : "text"}
-                    onBlur={handleBlur}
-                  />
-                  <h2 className="text-red-700 text-left text-xs my-2">
-                    {errors.cpassword &&
-                      touched.cpassword &&
-                      errors.cpassword}
-                  </h2>
+                  <Form>
+                    <div className="my-5">
+                      <Field
+                        disabled={state.loading ? true : false}
+                        name="fullName"
+                        style={errors.fullName && touched.fullName && myStyle}
+                        className=" w-full py-2 bg-gray-200 rounded px-3 outline-none"
+                        placeholder="Fullname"
+                        type="text"
+                        onBlur={handleBlur}
+                      />
+                      <h2 className="text-red-700 text-left text-xs my-2">
+                        {errors.fullName && touched.fullName && errors.fullName}
+                      </h2>
+                    </div>
+                    <div className="my-4">
+                      <Field
+                        disabled={state.loading ? true : false}
+                        name="email"
+                        style={errors.email && touched.email && myStyle}
+                        className=" w-full py-2 bg-gray-200 rounded px-3 outline-none"
+                        placeholder="Email"
+                        type="text"
+                        onBlur={handleBlur}
+                      />
+                      <h2 className="text-red-700 text-left text-xs my-2">
+                        {errors.email && touched.email && errors.email}
+                      </h2>
+                    </div>
+                    <div className="my-4">
+                      <Field
+                        disabled={state.loading ? true : false}
+                        name="password"
+                        style={errors.password && touched.password && myStyle}
+                        className=" w-full py-2 bg-gray-200 rounded px-3 outline-none"
+                        placeholder="Password"
+                        type="password"
+                        onBlur={handleBlur}
+                      />
+                      <h2 className="text-red-700 text-left text-xs my-2">
+                        {errors.password && touched.password && errors.password}
+                      </h2>
+                    </div>
+                    <div className="relative my-4">
+                      <Field
+                        disabled={state.loading ? true : false}
+                        name="cpassword"
+                        style={errors.cpassword && touched.cpassword && myStyle}
+                        className=" w-full  py-2 bg-gray-200 rounded px-3 outline-none relative"
+                        placeholder="Conform Password"
+                        type={viewPass ? "password" : "text"}
+                        onBlur={handleBlur}
+                      />
+                      <h2 className="text-red-700 text-left text-xs my-2">
+                        {errors.cpassword &&
+                          touched.cpassword &&
+                          errors.cpassword}
+                      </h2>
 
-                  {viewPass ? (
-                    <AiFillEyeInvisible
-                      onClick={() => setviewPass(!viewPass)}
-                      className="absolute top-3 text-xl right-3 "
-                    />
-                  ) : (
-                    <AiFillEye
-                      onClick={() => setviewPass(!viewPass)}
-                      className="absolute top-3 text-xl right-3 "
-                    />
-                  )}
-                </div>
+                      {viewPass ? (
+                        <AiFillEyeInvisible
+                          onClick={() => setviewPass(!viewPass)}
+                          className="absolute top-3 text-xl right-3 "
+                        />
+                      ) : (
+                        <AiFillEye
+                          onClick={() => setviewPass(!viewPass)}
+                          className="absolute top-3 text-xl right-3 "
+                        />
+                      )}
+                    </div>
 
-                {state.loading && (
-                  <div className="flex justify-center w-full">
-                    <BiLoaderAlt className="text-2xl animate-spin" />
-                  </div>
-                )}
-                <h2 className="text-red-700 text-center text-xl my-2">
-                  {state.error}
-                </h2>
+                    {state.loading && (
+                      <div className="flex justify-center w-full">
+                        <BiLoaderAlt className="text-2xl animate-spin" />
+                      </div>
+                    )}
+                    <h2 className="text-red-700 text-center text-xl my-2">
+                      {state.error}
+                    </h2>
 
-                <button disabled={state.loading ? true :false}
-                  type="submit"
-                  className=" my-4  font-semibold bg-gradient-to-r from-blue-400 to-slate-500 w-full  h-11 text-white rounded-full "
-                >
-                  Create Account
-                </button>
+                    <button
+                      disabled={state.loading ? true : false}
+                      type="submit"
+                      className=" my-4  font-semibold bg-gradient-to-r from-blue-400 to-slate-500 w-full  h-11 text-white rounded-full "
+                    >
+                      Create Account
+                    </button>
 
-                <h3 className="font-semibold">or</h3>
+                    <h3 className="font-semibold">or</h3>
 
-                <div className="grid lg:grid-cols-2 place-items-center">
-                  <div className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full lg:w-auto w-full justify-center lg:justify-evenly px-4 py-2" onClick={()=>{alert('Update Soon')}} >
-                    <FcGoogle className="ml-2" />
-                    <span className="text-xs font-semibold mx-3">
-                      Signup Google
-                    </span>
-                  </div>
-                  <div className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full lg:w-auto w-full justify-center lg:justify-evenly px-4 py-2" onClick={()=>{alert('Update Soon')}}>
+                    <div className="grid lg:grid-cols-1 place-items-center">
+                      <div
+                        className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full  w-full justify-center  px-4 py-2"
+                        onClick={()=>{g_login()}}
+                      >
+                        <FcGoogle className="ml-2" />
+                        <span className="text-xs font-semibold mx-3">
+                          Signup Google
+                        </span>
+                      </div>
+                      {/* THIS IS FACEBOOK AUTHENTICATION IF YOU WANT FACEBOOK INEGRATION UNCOMMENT THE DESIGN*/}
+                      {/* <div className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full lg:w-auto w-full justify-center lg:justify-evenly px-4 py-2" onClick={()=>{alert('Update Soon')}}>
                     <BsFacebook className="ml-2" />
                     <span className="text-xs font-semibold mx-3">
                       Signup facebook
                     </span>
-                  </div>
+                  </div> */}
+                    </div>
+                    <div className="grid grid-cols-5 items-center my-4">
+                      <hr className=" col-span-1 bg-gray-600 " />
+                      <h3 className="col-span-3 text-xs cursor-pointer">
+                        Aldready have an account{" "}
+                        <span
+                          onClick={() => {
+                            navigate("/login");
+                          }}
+                          className="text-blue-500 underline"
+                        >
+                          Login
+                        </span>
+                      </h3>
+                      <hr className="col-span-1   bg-black" />
+                    </div>
+                  </Form>
                 </div>
-                <div className="grid grid-cols-5 items-center my-4">
-                  <hr className=" col-span-1 bg-gray-600 " />
-                  <h3 className="col-span-3 text-xs cursor-pointer">
-                    Aldready have an account{" "}
-                    <span onClick={()=>{
-                        navigate("/login");
-
-                    }} className="text-blue-300 underline">Login</span>
-                  </h3>
-                  <hr className="col-span-1   bg-black" />
-                </div>
-              </Form>
-            </div>: <SucMsg email={state.signUp.result}
-              head=   'Link Sent Successfully'
-              msg1={state.signUp.msg}
-              btnName={"continue to login"}
-              route={"/login"}
-            /> 
-
-             }
+              ) : (
+                <SucMsg
+                  email={state.signUp.result}
+                  head="Link Sent Successfully"
+                  msg1={state.signUp.msg}
+                  btnName={"continue to login"}
+                  route={"/login"}
+                />
+              )}
               {/* <SucMsg email={'deepan123@gmail.com'} /> */}
             </div>
           </div>

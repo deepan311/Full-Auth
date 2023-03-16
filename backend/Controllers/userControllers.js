@@ -7,7 +7,7 @@ const multer = require("../multer");
 const upload = require("../multer");
 const path = require("path");
 const fs = require("fs");
-const SECRET_KEY = "DEEPAN";
+
 
 const jsonData = (condition, msg, result = null) => {
   return { status: condition, msg, result };
@@ -21,7 +21,7 @@ const ResetPasswordMailSend = async (email) => {
       return reject("User No Found");
     }
 
-    const token = await jwt.sign({ email: result.email }, SECRET_KEY, {
+    const token = await jwt.sign({ email: result.email }, process.env.SECRET, {
       expiresIn: "10m",
     });
 
@@ -38,7 +38,7 @@ const ResetPasswordMailSend = async (email) => {
       service: "gmail",
       auth: {
         user: "deep.developer.31@gmail.com",
-        pass: "attmfomifbjfydeg",
+        pass: process.env.GOOGLE_APP_PASSWORD,
       },
     });
 
@@ -60,7 +60,7 @@ const ResetPasswordMailSend = async (email) => {
 
 const VerifiedMailSend = async (email) => {
   return new Promise(async (resolve, reject) => {
-    const token = await jwt.sign({ email }, SECRET_KEY, {
+    const token = await jwt.sign({ email }, process.env.SECRET, {
       expiresIn: "1d",
     });
 
@@ -68,9 +68,10 @@ const VerifiedMailSend = async (email) => {
       service: "gmail",
       auth: {
         user: "deep.developer.31@gmail.com",
-        pass: "attmfomifbjfydeg",
+        pass: process.env.GOOGLE_APP_PASSWORD,
       },
     });
+    console.log('verifyemail',email)
 
     const compose = {
       from: "deep.developer.31@gmail.com",
@@ -199,7 +200,9 @@ exports.signUp = async (req, res) => {
     if (!fullName || !email || !password || !cpassword) {
       return res.status(500).send(jsonData(false, "provide valid details"));
     }
-    const existUser = await User.findOne({ email });
+
+      const existUser = await User.findOne({ email });
+  console.log(existUser)
     if (existUser) {
       return res
         .status(500)
@@ -211,16 +214,21 @@ exports.signUp = async (req, res) => {
           )
         );
     }
+    console.log('deepan')
     if (password != cpassword) {
       return res.status(500).send(jsonData(false, "Password Not match"));
     }
+   
     const result = await User.create({
       fullName,
       email,
       password,
     });
+ 
+    console.log(result)
 
     if (result) {
+      console.log(result)
       VerifiedMailSend(result.email)
         .then((doc) => {
           res
@@ -258,7 +266,7 @@ exports.login = async (req, res) => {
   const matchPassword = await bcrypt.compare(password, foundUser.password);
 
   if (matchPassword) {
-    const token = await jwt.sign({ id: foundUser._id }, SECRET_KEY, {
+    const token = await jwt.sign({ id: foundUser._id }, process.env.SECRET, {
       expiresIn: "30m",
     });
     return res.status(200).send(jsonData(true, "signIn Successfully", token));
@@ -333,7 +341,7 @@ exports.verifyEmail = async (req, res) => {
   const { token } = req.params;
 
   try {
-    await jwt.verify(token, SECRET_KEY, async (err, doc) => {
+    await jwt.verify(token, process.env.SECRET, async (err, doc) => {
       if (err) {
         return res.status(400).send(jsonData(false, "Token Expired"));
       }
@@ -353,6 +361,11 @@ exports.verifyEmail = async (req, res) => {
 exports.resendVerfiEmail = async (req, res) => {
   const { email } = req.params;
   const dbresult = await User.findOne({ email });
+  if(!dbresult){
+    return res
+    .status(400)
+    .json(jsonData(true, "NO DATA FOUND", email));
+  }
   if (dbresult.emailVerified) {
     return res
       .status(400)
@@ -454,7 +467,7 @@ exports.updatePassword = async (req, res) => {
   }
 
   try {
-    await jwt.verify(token, SECRET_KEY, async (err, doc) => {
+    await jwt.verify(token, process.env.SECRET, async (err, doc) => {
       if (err) {
         return res.status(400).send(jsonData(false, "Token Expired"));
       }
@@ -463,7 +476,7 @@ exports.updatePassword = async (req, res) => {
         res.status(200).send(jsonData(true, "No Email Found", doc));
       }
 
-      jwt.verify(result.resetPassword, SECRET_KEY, async (err, doc) => {
+      jwt.verify(result.resetPassword, process.env.SECRET, async (err, doc) => {
         if (err) {
           return res.status(400).send(jsonData(false, "Token Expired Retry"));
         }
@@ -487,7 +500,7 @@ exports.updatePassword = async (req, res) => {
 exports.passlink = async (req, res) => {
   const { token } = req.params;
 
-  jwt.verify(token, SECRET_KEY, (err, doc) => {
+  jwt.verify(token, process.env.SECRET, (err, doc) => {
     if (err) {
       return res.status(400).send(jsonData(false, "Token Expired"));
     }
@@ -504,7 +517,7 @@ exports.verifyToken = async (req, res, next) => {
     return res.status(400).send(jsonData(false, "No Token provide"));
   }
 
-  jwt.verify(token, SECRET_KEY, (err, doc) => {
+  jwt.verify(token, process.env.SECRET, (err, doc) => {
     if (err) {
       if (err.message) {
         return res.status(500).send(jsonData(false, "Token Expired"));
@@ -525,3 +538,6 @@ exports.verifyToken = async (req, res, next) => {
 //       res.status(400).send(jsonData(false, "email Not valid", err));
 //     });
 // };
+
+
+

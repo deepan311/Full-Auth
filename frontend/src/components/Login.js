@@ -4,12 +4,13 @@ import { BsFacebook } from "react-icons/bs";
 import { BiLoaderAlt } from "react-icons/bi";
 import authImg from "../asset/auth.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { login, logout } from "../redux/userSlice";
+import { googleLogin, login, logout } from "../redux/userSlice";
 import { useCookies } from "react-cookie";
 
 const Login = () => {
@@ -59,6 +60,12 @@ const Login = () => {
 
     return error;
   };
+
+  const g_login = async()=>{
+
+    window.location.replace('http://localhost:9000/google')
+
+  }
 
   const log = async (e, { setFieldError }) => {
     const data = await dispatch(
@@ -153,11 +160,11 @@ const Login = () => {
                     </div>
                   )}
 
-                  <h2 className="text-red-700 text-center text-xl my-2">
+                 {!state.loading &&  <h2 className="text-red-700 text-center text-md my-2">
                     {state.error}
-                  </h2>
+                  </h2>}
 
-                  <button
+                  <button disabled={state.loading}
                     type="submit"
                     className=" my-4  font-semibold bg-gradient-to-r from-blue-400 to-slate-500 w-full  h-11 text-white rounded-full "
                   >
@@ -166,15 +173,17 @@ const Login = () => {
 
                   <h3 className="font-semibold">or</h3>
 
-                  <div className="grid lg:grid-cols-2 place-items-center">
-                    <div className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full lg:w-auto w-full justify-center lg:justify-evenly px-4 py-2" 
-                    onClick={()=>{alert('Update Soon')}}>
+                  <div className="grid lg:grid-cols-1 place-items-center">
+                    <div className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full  w-full justify-center  px-4 py-2" 
+                    onClick={()=>{g_login()}}>
                       <FcGoogle className="ml-2" />
                       <span className="text-xs font-semibold mx-3">
                         SignIn Google
                       </span>
                     </div>
-                    <button type="button" onClick={()=>{alert('Update Soon')}}
+                  {/* THIS IS FACEBOOK AUTHENTICATION IF YOU WANT FACEBOOK INEGRATION UNCOMMENT THE DESIGN*/}
+
+                    {/* <button type="button" onClick={()=>{alert('Update Soon')}}
 
                       className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full lg:w-auto w-full justify-center lg:justify-evenly px-4 py-2"
                     >
@@ -182,7 +191,7 @@ const Login = () => {
                       <span className="text-xs font-semibold mx-3">
                         SignIn facebook
                       </span>
-                    </button>
+                    </button> */}
                   </div>
                   <div className="grid grid-cols-5 items-center my-4">
                     <hr className=" col-span-1 bg-gray-600 " />
@@ -190,7 +199,7 @@ const Login = () => {
                       Don't have a account{" "}
                       <span onClick={()=>{
                         navigate('/signup')
-                      }} className="cursor-pointer text-blue-300 underline">
+                      }} className="cursor-pointer text-blue-500 underline">
                         click to SignUp
                       </span>
                     </h3>

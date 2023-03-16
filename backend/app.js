@@ -1,30 +1,29 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const router = require("./Router/userRouter");
+const router = require("./Router/googleSign");
 const bodyParser = require('body-parser');
 const dotenv =require('dotenv').config()
 
+
+const session = require('express-session');
+const passport =require('passport')
+const GoogleStrategy =require('passport-google-oauth20').Strategy
+
 // ===========================MIDDLEWARE============================
-const allowedOrigins = ['https://deep-full-auth.vercel.app'];
+const allowedOrigins = ['https://deep-full-auth.vercel.app','http://localhost:3000'];
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
+  origin: allowedOrigins,
+  credentials: true
 }));
 
 //================ Enable CORS for all routes
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
-  });
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Credentials', true);
+  next();
+});
  
 app.use(express.json());
 
@@ -33,6 +32,15 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 // ===========================ROUTER============================
 app.use('/',router)
+
+
+//==================GOOGLE=====================
+
+
+
+
+
+
 
 
 module.exports = app;

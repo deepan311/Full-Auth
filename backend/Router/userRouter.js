@@ -1,4 +1,6 @@
 const express = require("express");
+const app = require('../app')
+
 const {
   getData,
   signUp,
@@ -27,7 +29,6 @@ router.get("/profile-img",verifyToken,getProfileImage)
 router.get("/alldata", verifyToken, getAllData);
 router.get("/verify-email/:token", verifyEmail);
 router.get("/reset-password/:token", passlink);
-router.get("/:token?", passlink);
 router.get('/resend-verify-email/:email',resendVerfiEmail)
 
 
@@ -41,5 +42,11 @@ router.put("/reset-password", updatePassword); // body {token & newPassword} , U
 
 router.delete("/delete", verifyToken, deleteUser);
 // router.get("/email-send", emailSend);
+
+
+
+// =================GOOGLE=========================================
+
+
 
 module.exports = router;

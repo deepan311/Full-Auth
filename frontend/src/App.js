@@ -9,6 +9,7 @@ import VerifyEmail from "./components/VerifyEmail";
 import ErrorMsg from "./components/ErrorMsg";
 import { useCookies } from "react-cookie";
 
+import GoogleCall from './components/GoogleCall'
 import { Routes, Route, Link } from "react-router-dom";
 import HomeProtected from "./components/HomeProtected";
 import LoginProtected from "./components/LoginProtected";
@@ -58,6 +59,12 @@ function App() {
             <LoginProtected>
               <Login />{" "}
             </LoginProtected>
+          }
+        />
+           <Route
+          path="/google/:token"
+          element={
+            <GoogleCall/>
           }
         />
         <Route

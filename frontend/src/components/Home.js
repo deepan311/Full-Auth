@@ -19,7 +19,7 @@ const Home = () => {
   const [err, seterr] = useState("");
 
   const state = useSelector((state) => state.user);
-  
+
   const dispatch = useDispatch();
   const [cookie, setcookie, removecookie] = useCookies();
   const navigate = useNavigate();
@@ -93,40 +93,35 @@ const Home = () => {
 
   const fileUpload = async (e) => {
 
-    return alert('Somthing Problem Deepan has update Soon so please wait...')
-    const file = e.target.files[0];
-    const formdata = new FormData();
-    formdata.append(state.userdata.email, file);
-    setinterload(true)
-    await axios
-      .put(`${process.env.REACT_APP_API_URL}/update-profile`, formdata, {
-        headers: { token: cookie.token },
-      })
-      .then(async(res) => {
-        await dispatch(fetchImage(cookie.token))
-       setinterload(false)
+    // THIS FUNCTION NOT WORKING FOR PRODUCTION=================================
+    // BECAUSE WE WON'T CONNECT ANY IMAGE FETCHING FROM CLOUD PROVIDER LIKE (aws-sdk)======================
+    return alert("Hey User... !    THIS FUNCTION NOT WORKING FOR PRODUCTION , BECAUSE WE WON'T CONNECT ANY IMAGE FETCHING FROM CLOUD PROVIDER LIKE (aws-sdk)");
 
-      })
-      .catch((err) => {
-       setmsg({ data: err.response.data.msg, status: true, color: "text-red-400" });
+    // IF YOU RUN LOCALLY YOU CAN THIS COMMANDED FUNCTION...------=>
 
-       setinterload(false)
 
-      });
+    // const file = e.target.files[0];
+    // const formdata = new FormData();
+    // formdata.append(state.userdata.email, file);
+    // setinterload(true);
+    // await axios
+    //   .put(`${process.env.REACT_APP_API_URL}/update-profile`, formdata, {
+    //     headers: { token: cookie.token },
+    //   })
+    //   .then(async (res) => {
+    //     await dispatch(fetchImage(cookie.token));
+    //     setinterload(false);
+    //   })
+    //   .catch((err) => {
+    //     setmsg({
+    //       data: err.response.data.msg,
+    //       status: true,
+    //       color: "text-red-400",
+    //     });
+
+    //     setinterload(false);
+    //   });
   };
-
-  // const convertBaseUrl = async (file) => {
-  //   return new Promise((resolve, reject) => {
-  //     const fileRead = new FileReader();
-  //     fileRead.readAsDataURL(file);
-  //     fileRead.onload = () => {
-  //       resolve(fileRead.result);
-  //     };
-  //     fileRead.onerror = (err) => {
-  //       return reject(err);
-  //     };
-  //   });
-  // };
 
   return (
     <div className="w-full flex-col justify-center  h-screen bg-orange-50 py-14 relative">
@@ -135,6 +130,16 @@ const Home = () => {
           <h3 className={`${msg.status && msg.color} text-xs font-bold py-3`}>
             {msg.data}
           </h3>
+        </div>
+      )}
+       {!state.userdata.emailVerified && (
+        <div className="absolute flex justify-center top-0 w-full bg-gray-700 text-center ">
+          <h3 className={`text-red-300 text-xs font-bold py-3`}>
+            Email Not Verified 
+          </h3>
+          <button onClick={()=>{
+            window.open('https://mail.google.com',"_blank")
+          }} className="rounded bg-white  px-3 mx-3 my-2 " >verify</button>
         </div>
       )}
 
@@ -219,6 +224,12 @@ const Home = () => {
           Signout
         </button>
       </form>
+
+      <div className="w-[60vh] text-justify p-3 px-5  rounded mx-auto text-wrap bg-red-300 ">
+        <span className="font-bold">Warning :</span> This is for educational purposes
+        only. Your data will not be stored beyond the duration of the program.
+        Privacy is important to us. Contact us with any questions <span className="font-semibold">deep.developer.31@gmail.com</span> 
+      </div>
     </div>
   );
 };
