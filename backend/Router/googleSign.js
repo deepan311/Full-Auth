@@ -2,7 +2,7 @@ const express = require("express");
 const User = require("../DB/userModel");
 const passport = require("passport");
 const session = require("express-session");
-
+const RedisStore = require('connect-redis')(session);
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const jwt = require("jsonwebtoken");
 const router = require("./userRouter");
@@ -11,6 +11,7 @@ const app = express();
 
 router.use(
   session({
+    store: new RedisStore({ url: 'redis://localhost:6379' }),
     secret: "deepan",
     resave: false,
     saveUninitialized: false,
