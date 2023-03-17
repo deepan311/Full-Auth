@@ -156,12 +156,12 @@ const Login = () => {
                     </div>
                   </div>
 
-                  {state.loading
-                     && (
+                  {state.loading || load
+                     ? (
                       <div className="flex justify-center w-full">
                         <BiLoaderAlt className="text-2xl animate-spin" />
                       </div>
-                    )}
+                    ):""}
 
                   {!state.loading && (
                     <h2 className="text-red-700 text-center text-md my-2">
