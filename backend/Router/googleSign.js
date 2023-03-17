@@ -5,6 +5,7 @@ const session = require("express-session");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const jwt = require("jsonwebtoken");
 const router = require("./userRouter");
+const { verifyEmail, verifyToken } = require("../Controllers/userControllers");
 
 const app = express();
 
@@ -116,5 +117,5 @@ router.get(
 
  
 );
-router.get('/:token')
+router.get('/:token',verifyToken)
 module.exports = router;
