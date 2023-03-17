@@ -45,8 +45,6 @@ router.delete("/delete", verifyToken, deleteUser);
 
 
 
-// =================GOOGLE=========================================
-
 
 
 module.exports = router;

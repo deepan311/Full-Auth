@@ -117,5 +117,5 @@ router.get(
 
  
 );
-router.get('/:token',passlink)
+router.get("/:token",passlink);
 module.exports = router;

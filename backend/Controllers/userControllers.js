@@ -255,6 +255,12 @@ exports.signUp = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
+  if(!email|| !password){
+    return res
+      .status(400)
+      .json(jsonData(false, "provide valid details"));
+  }
+
   const foundUser = await User.findOne({ email });
 
   if (!foundUser) {
@@ -502,7 +508,7 @@ exports.passlink = async (req, res) => {
 
   jwt.verify(token, process.env.SECRET, (err, doc) => {
     if (err) {
-      return res.status(400).send(jsonData(false, "Token Expired"));
+      return res.status(400).send(jsonData(false, "Token Expired passlink",err));
     }
     return res.status(200).send(jsonData(true, "Link Pass", token));
   });
