@@ -176,6 +176,7 @@ exports.getAllData = async (req, res) => {
 
 exports.getData = async (req, res) => {
   const id = req.id.trim();
+  
   try {
     if (!id) {
       return res.status(401).send(jsonData(false, "Token No Found"));
@@ -196,7 +197,11 @@ exports.getData = async (req, res) => {
 
 exports.signUp = async (req, res) => {
   try {
-    const { fullName, email, password, cpassword } = req.body.trim();
+    var { fullName, email, password, cpassword } = req.body;
+    var fullName = fullName.trim()
+    var email = email.trim()
+    var password = password.trim()
+    var cpassword = cpassword.trim()
     if (!fullName || !email || !password || !cpassword) {
       return res.status(500).send(jsonData(false, "provide valid details"));
     }
@@ -253,8 +258,9 @@ exports.signUp = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { email, password } = req.body.trim();
-
+  var { email, password } = req.body;
+  var email =email.trim()
+  var password =password.trim()
   if(!email|| !password){
     return res
       .status(400)
