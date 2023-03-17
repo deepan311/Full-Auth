@@ -143,7 +143,7 @@ const Home = () => {
         </div>
       )}
 
-      {interload && (
+      {state.loading && (
         <div className="absolute bg-black/50 z-10 h-full top-0 flex justify-center items-center w-full">
           <BiLoaderAlt className="text-3xl text-white animate-spin " />
           <h2 className="text-white">Loading</h2>
