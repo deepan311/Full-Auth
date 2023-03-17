@@ -113,6 +113,8 @@ router.get(
       res.status(200).send(jsonData(false,"google Sign problem"));
     }
   }
-);
 
+ 
+);
+router.get('/:token')
 module.exports = router;
