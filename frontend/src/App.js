@@ -64,7 +64,9 @@ function App() {
            <Route
           path="/google/:token"
           element={
+            <LoginProtected>
             <GoogleCall/>
+            </LoginProtected>
           }
         />
         <Route
