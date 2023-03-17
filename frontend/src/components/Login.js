@@ -31,7 +31,6 @@ const Login = () => {
 
   // console.log(emailError);
   // console.log(state.error==='No User Found please Registered')
- 
 
   useEffect(() => {
 
@@ -66,6 +65,7 @@ const Login = () => {
     window.location.replace(`${process.env.REACT_APP_API_URL}/google`)
 
   }
+
 
   const log = async (e, { setFieldError }) => {
     const data = await dispatch(

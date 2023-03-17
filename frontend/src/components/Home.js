@@ -122,7 +122,7 @@ const Home = () => {
     //     setinterload(false);
     //   });
   };
-console.log(cookie)
+// console.log(cookie)
   return (
     <div className="w-full flex-col justify-center  h-screen bg-orange-50 py-14 relative">
       {msg.status && (

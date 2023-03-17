@@ -9,13 +9,13 @@ import VerifyEmail from "./components/VerifyEmail";
 import ErrorMsg from "./components/ErrorMsg";
 import { useCookies } from "react-cookie";
 
-import GoogleCall from './components/GoogleCall'
+import GoogleCall from "./components/GoogleCall";
 import { Routes, Route, Link } from "react-router-dom";
 import HomeProtected from "./components/HomeProtected";
 import LoginProtected from "./components/LoginProtected";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "./redux/userSlice";
+import { googleLogin, logout } from "./redux/userSlice";
 function App() {
   const [cookie, setcookie, removecookie] = useCookies();
   const [auth, setauth] = useState(false);
@@ -26,22 +26,21 @@ function App() {
   const tokenverify = async (token) => {
     const result = await axios
       .get(`${process.env.REACT_APP_API_URL}/${token}`)
-      .then((res) => true)
+      .then((res) => {
+        return true;
+      })
       .catch((err) => {
-        removecookie("token");
-        dispatch(logout());
+        // removecookie("token");
+        // dispatch(logout());
         return false;
       });
   };
-
 
   useEffect(() => {
     if (cookie.token) {
       tokenverify(cookie.token);
     }
-
   }, []);
-
   return (
     <div className="App">
       <Routes>
@@ -61,11 +60,11 @@ function App() {
             </LoginProtected>
           }
         />
-           <Route
+        <Route
           path="/google/:token"
           element={
             <LoginProtected>
-            <GoogleCall/>
+              <GoogleCall />
             </LoginProtected>
           }
         />
@@ -84,7 +83,6 @@ function App() {
           path="*"
           element={
             <>
-            
               {" "}
               <ErrorMsg
                 msg1="404 no page found"
@@ -96,7 +94,6 @@ function App() {
           }
         />
       </Routes>
-
     </div>
   );
 }

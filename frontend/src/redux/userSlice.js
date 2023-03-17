@@ -52,18 +52,8 @@ export const login = createAsyncThunk(
   }
 );
 
-export const googleLogin = createAsyncThunk(
-  "user/g_login",
-  async () => {
-try {
-  const response = await axios.get(`${process.env.REACT_APP_API_URL}/google`);
-  return response.data.redirectUrl;
-} catch (error) {
-  throw new Error(error.response.data.msg);
-  
-}
-  }
-);
+
+
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async (token) => {
   try {
@@ -87,10 +77,8 @@ export const fetchImage = createAsyncThunk("user/fetchImage", async (token) => {
       }
     );
     const url = URL.createObjectURL(result.data);
-    console.log(url);
     return url;
   } catch (error) {
-    console.log(error);
     throw new Error(error.response.data);
   }
 });
@@ -106,7 +94,12 @@ const userSlice = createSlice({
       state.error = null;
       state.profilesrc = null;
     },
+    googleLogin:(state,action)=>{
+      state.token =action.payload ;
+      state.auth =true;
+    }
   },
+
   extraReducers: (builder) => {
     // ====================SIGNUP========================
 
@@ -154,18 +147,18 @@ const userSlice = createSlice({
 
     // ====================GOOGLE-LOGIN========================
 
-    builder.addCase(googleLogin.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(googleLogin.fulfilled, (state, action) => {
-      state.loading = false;
-      console.log(action.payload)
-      window.location.replace(action.payload);
-    });
-    builder.addCase(googleLogin.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
+    // builder.addCase(googleLogin.pending, (state) => {
+    //   state.loading = true;
+    // });
+    // builder.addCase(googleLogin.fulfilled, (state, action) => {
+    //   state.loading = false;
+    //   console.log(action.payload)
+    //   window.location.replace(action.payload);
+    // });
+    // builder.addCase(googleLogin.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.error.message;
+    // });
 
     // ==================FETCHUSER========================
 
@@ -188,4 +181,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { logout } = userSlice.actions;
+export const { logout,googleLogin } = userSlice.actions;
