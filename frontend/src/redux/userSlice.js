@@ -56,7 +56,7 @@ export const googleLogin = createAsyncThunk(
   "user/g_login",
   async () => {
 try {
-  const response = await axios.get(`${process.env.REACT_APP_API_URL}s/google`);
+  const response = await axios.get(`${process.env.REACT_APP_API_URL}/google`);
   return response.data.redirectUrl;
 } catch (error) {
   throw new Error(error.response.data.msg);

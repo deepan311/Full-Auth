@@ -31,7 +31,7 @@ passport.use(
       clientID:
         "541116046406-rlpg5ecjcb7da3prsh025upd9kh0i9d4.apps.googleusercontent.com",
       clientSecret: "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",
-      callbackURL: `${process.env.CLIENT_URL}/google/callback`,
+      callbackURL: `${process.env.SELF_URL}/google/callback`,
     },
     async (accesstoken, refreshtoken, profile, done) => {
       const user = await User.findOne({ googleId: profile.id });
