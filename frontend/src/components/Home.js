@@ -32,7 +32,7 @@ const Home = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    removecookie("token", { secure: true, sameSite: "none" });
+    removecookie("token", { secure: true, sameSite: "none" ,path:'/' });
     dispatch(logout());
     navigate("/login");
   };

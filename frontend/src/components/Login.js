@@ -4,7 +4,7 @@ import { BsFacebook } from "react-icons/bs";
 import { BiLoaderAlt } from "react-icons/bi";
 import authImg from "../asset/auth.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
@@ -34,8 +34,7 @@ const Login = () => {
   // console.log(state.error==='No User Found please Registered')
 
   useEffect(() => {
-
-          dispatch(logout())
+    dispatch(logout());
   }, []);
 
   const myStyle = {
@@ -43,7 +42,7 @@ const Login = () => {
   };
 
   const initialValue = {
-    email: loc.state && loc.state.email || "",
+    email: (loc.state && loc.state.email) || "",
     password: "",
   };
 
@@ -61,25 +60,26 @@ const Login = () => {
     return error;
   };
 
-  const g_login = async()=>{
-    setload(true)
-  await  window.location.replace(`${process.env.REACT_APP_API_URL}/google`);
-  setload(false)
-
-  }
-
+  const g_login = async () => {
+    setload(true);
+    await window.location.replace(`${process.env.REACT_APP_API_URL}/google`);
+    setload(false);
+  };
 
   const log = async (e, { setFieldError }) => {
     const data = await dispatch(
       login({ email: e.email, password: e.password })
     );
-    if(data.payload)setcookie("token", data.payload.result,{sameSite:'none',secure:true});
+    if (data.payload)
+      setcookie("token", data.payload.result, {
+        sameSite: "none",
+        secure: true,
+      });
   };
-
 
   return (
     <>
-      <Formik  initialValues={initialValue} validate={validate} onSubmit={log}>
+      <Formik initialValues={initialValue} validate={validate} onSubmit={log}>
         {({ errors, handleBlur, touched, setFieldError }) => (
           <div className="grid grid-cols-1 h-full md:grid-cols-2 bg-gradient-to-b from-blue-400 to-slate-800 ">
             <div className="w-full h-screen mt-10">
@@ -98,7 +98,7 @@ const Login = () => {
                   Welcome Back
                 </h3>
 
-                <Form >
+                <Form>
                   <div className="my-4">
                     <Field
                       name="email"
@@ -156,17 +156,21 @@ const Login = () => {
                     </div>
                   </div>
 
-                  {state.loading || load && (
-                    <div className="flex justify-center w-full">
-                      <BiLoaderAlt className="text-2xl animate-spin" />
-                    </div>
+                  {state.loading
+                     && (
+                      <div className="flex justify-center w-full">
+                        <BiLoaderAlt className="text-2xl animate-spin" />
+                      </div>
+                    )}
+
+                  {!state.loading && (
+                    <h2 className="text-red-700 text-center text-md my-2">
+                      {state.error}
+                    </h2>
                   )}
 
-                 {!state.loading &&  <h2 className="text-red-700 text-center text-md my-2">
-                    {state.error}
-                  </h2>}
-
-                  <button disabled={state.loading}
+                  <button
+                    disabled={state.loading}
                     type="submit"
                     className=" my-4  font-semibold bg-gradient-to-r from-blue-400 to-slate-500 w-full  h-11 text-white rounded-full "
                   >
@@ -176,14 +180,18 @@ const Login = () => {
                   <h3 className="font-semibold">or</h3>
 
                   <div className="grid lg:grid-cols-1 place-items-center">
-                    <div className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full  w-full justify-center  px-4 py-2" 
-                    onClick={()=>{g_login()}}>
+                    <div
+                      className=" cursor-pointer hover:bg-black/20 hover:border-0 h-11 flex items-center my-2 border border-black rounded-full  w-full justify-center  px-4 py-2"
+                      onClick={() => {
+                        g_login();
+                      }}
+                    >
                       <FcGoogle className="ml-2" />
                       <span className="text-xs font-semibold mx-3">
                         SignIn Google
                       </span>
                     </div>
-                  {/* THIS IS FACEBOOK AUTHENTICATION IF YOU WANT FACEBOOK INEGRATION UNCOMMENT THE DESIGN*/}
+                    {/* THIS IS FACEBOOK AUTHENTICATION IF YOU WANT FACEBOOK INEGRATION UNCOMMENT THE DESIGN*/}
 
                     {/* <button type="button" onClick={()=>{alert('Update Soon')}}
 
@@ -199,9 +207,12 @@ const Login = () => {
                     <hr className=" col-span-1 bg-gray-600 " />
                     <h3 className="col-span-3 text-xs">
                       Don't have a account{" "}
-                      <span onClick={()=>{
-                        navigate('/signup')
-                      }} className="cursor-pointer text-blue-500 underline">
+                      <span
+                        onClick={() => {
+                          navigate("/signup");
+                        }}
+                        className="cursor-pointer text-blue-500 underline"
+                      >
                         click to SignUp
                       </span>
                     </h3>
