@@ -122,7 +122,7 @@ const Home = () => {
     //     setinterload(false);
     //   });
   };
-
+console.log(cookie)
   return (
     <div className="w-full flex-col justify-center  h-screen bg-orange-50 py-14 relative">
       {msg.status && (
@@ -226,7 +226,7 @@ const Home = () => {
       </form>
 
 
-      <div className="w-full md:w-[60vh] text-justify p-3 px-5  rounded mx-auto text-wrap bg-red-300 ">
+      <div className="w-full lg:w-[60vh] text-justify p-3 px-5  rounded mx-auto text-wrap bg-red-300 ">
         <span className="font-bold">Warning :</span> This is for educational purposes
         only. Your data will not be stored beyond the duration of the program.
         Privacy is important to us. Contact us with any questions <span className="font-semibold">deep.developer.31@gmail.com</span> 
