@@ -17,6 +17,7 @@ const Login = () => {
   const loc = useLocation();
 
   const [viewPass, setviewPass] = useState(true);
+  const [load, setload] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,8 +62,9 @@ const Login = () => {
   };
 
   const g_login = async()=>{
-
-    window.location.replace(`${process.env.REACT_APP_API_URL}/google`)
+    setload(true)
+  await  window.location.replace(`${process.env.REACT_APP_API_URL}/google`);
+  setload(false)
 
   }
 
@@ -154,7 +156,7 @@ const Login = () => {
                     </div>
                   </div>
 
-                  {state.loading && (
+                  {state.loading || load && (
                     <div className="flex justify-center w-full">
                       <BiLoaderAlt className="text-2xl animate-spin" />
                     </div>
